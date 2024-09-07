@@ -1,3 +1,19 @@
+:root {
+  --sari: #FDC913;
+  --acik-gri: #5F5F5F;
+  --koyu-gri: #292929;
+  --kirmizi: #CE2829;
+  --bej: #FAF7F2;
+}
+
+
+header {
+  background-color: #CE2829;
+  color: #FAF7F2;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -11,9 +27,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +40,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
