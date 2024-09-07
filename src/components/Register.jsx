@@ -2,38 +2,53 @@ import React, { useState } from 'react';
 import { Form, FormGroup, Input, Label, Button, Nav, NavItem, NavLink, Card, CardText, CardBody, CardTitle, ButtonGroup } from 'reactstrap';
 
 const sizes = ['Küçük', 'Orta', 'Büyük'];
-const doughOptions = ['Hamur Kalınlığı ince', 'Hamur Kalınlığı orta', 'Hamur Kalınlığı kalın'];
+const hamurOptions = ['Hamur Kalınlığı İnce', 'Hamur Kalınlığı Normal', 'Hamur Kalınlığı Kalın'];
+const ingredients = [
+    'Pepperoni', 'Domates', 'Biber', 'Sosis', 'Mısır',
+    'Sucuk', 'Kanada Jambonu', 'Ananas', 'Tavuk Izgara',
+    'Jalepeno', 'Kabak', 'Soğan', 'Sarımsak'
+];
 
 export default function Register() {
-    const [size, setSize] = useState('');
-    const [dough, setDough] = useState('');
+    const [boyut, setBoyut] = useState('');
+    const [hamur, setHamur] = useState('');
     const [note, setNote] = useState('');
-    const [name, setName] = useState('');
+    const [isim, setisim] = useState('');
     const [quantity, setQuantity] = useState(1);
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
 
-    const handleSizeChange = (event) => {
-        setSize(event.target.value);
+    const handleChangeBoyut = (event) => {
+        setBoyut(event.target.value);
     };
 
-    const handleDoughChange = (event) => {
-        setDough(event.target.value);
+    const handleChangeHamur = (event) => {
+        setHamur(event.target.value);
     };
 
-    const handleNoteChange = (event) => {
+    const handleChangeNot = (event) => {
         setNote(event.target.value);
     };
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    const handleisimChange = (event) => {
+        setisim(event.target.value);
     };
 
     const handleQuantityChange = (amount) => {
         setQuantity((prevQuantity) => Math.max(prevQuantity + amount, 1));
     };
 
+    const handleIngredientChange = (event) => {
+        const ingredient = event.target.value;
+        setSelectedIngredients((prevSelected) =>
+            prevSelected.includes(ingredient)
+                ? prevSelected.filter(item => item !== ingredient)
+                : [...prevSelected, ingredient]
+        );
+    };
+
     return (
         <div>
-            <header style={{ backgroundColor: '#CE2829', padding: '1rem' }}>
+            <header style={{ backgroundColor: '#CE2829' }}>
                 <h1 style={{ color: 'white', fontFamily: '"Londrina Solid", sans-serif' }}>Teknolojik Yemekler</h1>
                 <Nav>
                     <NavItem>
@@ -41,11 +56,7 @@ export default function Register() {
                             Anasayfa
                         </NavLink>
                     </NavItem>
-                    <NavItem>
-                        <NavLink style={{ color: 'white' }} href="#">
-                            Seçenekler
-                        </NavLink>
-                    </NavItem>
+
                     <NavItem>
                         <NavLink active style={{ color: 'white' }} href="#">
                             Sipariş Oluştur
@@ -56,9 +67,18 @@ export default function Register() {
 
             <Form>
                 <h2>Position Absolute Acı Pizza</h2>
-                <div>85.50₺</div>
-                <div>4.9</div>
-                <div>(200)</div>
+                <div class="container-detay" style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}>
+                    <div style={{
+                        fontSize: '1.4rem',
+                        fontWeight: '600',
+                    }}>85.50₺</div>
+                    <div>4.9</div>
+                    <div>(200)</div>
+                </div>
                 <p>
                     Frontend Dev olarak hala position: absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen genellikle yuvarlak düzeltilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
                 </p>
@@ -72,8 +92,8 @@ export default function Register() {
                                     name="boyut"
                                     type="radio"
                                     value={sizeOption}
-                                    checked={size === sizeOption}
-                                    onChange={handleSizeChange}
+                                    checked={boyut === sizeOption}
+                                    onChange={handleChangeBoyut}
                                 />
                                 <Label check>
                                     {sizeOption}
@@ -82,16 +102,16 @@ export default function Register() {
                         ))}
                     </FormGroup>
 
-                    <FormGroup style={{ flex: 1 }}>
-                        <Label for="hamurSec">Hamur Seç</Label>
+                    <FormGroup tag="fieldset" style={{ flex: 1 }}>
+                        <legend>Hamur Seç<span style={{ color: '#CE2829' }}>*</span></legend>
                         <Input
                             id="hamurSec"
                             name="select"
                             type="select"
-                            value={dough}
-                            onChange={handleDoughChange}
+                            value={hamur}
+                            onChange={handleChangeHamur}
                         >
-                            {doughOptions.map((option, index) => (
+                            {hamurOptions.map((option, index) => (
                                 <option key={index} value={option}>
                                     {option}
                                 </option>
@@ -101,6 +121,26 @@ export default function Register() {
                 </div>
 
                 <FormGroup>
+                    <Label for="ingredients" style={{ fontSize: '1.1rem' }}> Ek Malzemeler</Label>
+                    {ingredients.map((ingredient, index) => (
+                        <FormGroup check key={index} style={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}>
+                            <Input
+                                type="checkbox"
+                                value={ingredient}
+                                checked={selectedIngredients.includes(ingredient)}
+                                onChange={handleIngredientChange}
+                            />
+                            <Label check>
+                                {ingredient}
+                            </Label>
+                        </FormGroup>
+                    ))}
+                </FormGroup>
+
+                <FormGroup>
                     <Label for="siparisnotu">Sipariş Notu</Label>
                     <Input
                         id="siparisnotu"
@@ -108,7 +148,7 @@ export default function Register() {
                         placeholder="Siparişine eklemek istediğin bir not var mı?"
                         type="textarea"
                         value={note}
-                        onChange={handleNoteChange}
+                        onChange={handleChangeNot}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -118,8 +158,8 @@ export default function Register() {
                         name="name"
                         placeholder="En az 3 karakter"
                         type="text"
-                        value={name}
-                        onChange={handleNameChange}
+                        value={isim}
+                        onChange={handleisimChange}
                     />
                 </FormGroup>
 
@@ -150,6 +190,7 @@ export default function Register() {
                         +
                     </Button>
                 </ButtonGroup>
+
                 <Card className="my-2" style={{ width: '18rem' }}>
                     <CardBody>
                         <CardTitle tag="h5">Sipariş Toplamı</CardTitle>
