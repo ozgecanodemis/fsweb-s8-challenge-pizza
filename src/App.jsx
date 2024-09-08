@@ -1,11 +1,12 @@
 
 import './App.css'
-import Register from './components/Register'
+
+import Siparis from './components/Siparis'
 
 function App() {
   return (
     <>
-      <Register />
+      <Siparis />
 
     </>
   )

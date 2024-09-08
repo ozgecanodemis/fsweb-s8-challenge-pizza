@@ -9,7 +9,7 @@ const ingredients = [
     'Jalepeno', 'Kabak', 'Soğan', 'Sarımsak'
 ];
 
-export default function Register() {
+export default function Siparis() {
     const [boyut, setBoyut] = useState('');
     const [hamur, setHamur] = useState('');
     const [note, setNote] = useState('');
