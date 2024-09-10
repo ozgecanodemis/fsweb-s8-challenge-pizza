@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, FormGroup, Input, Label, Button, Nav, NavItem, NavLink, Card, CardText, CardBody, CardTitle, ButtonGroup } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const sizes = ['Küçük', 'Orta', 'Büyük'];
 const hamurOptions = ['Hamur Kalınlığı İnce', 'Hamur Kalınlığı Normal', 'Hamur Kalınlığı Kalın'];
@@ -67,7 +68,7 @@ export default function Siparis() {
 
             <Form>
                 <h2>Position Absolute Acı Pizza</h2>
-                <div class="container-detay" style={{
+                <div className="container-detay" style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
@@ -121,11 +122,11 @@ export default function Siparis() {
                 </div>
 
                 <FormGroup>
-                    <Label for="ingredients" style={{ fontSize: '1.1rem' }}> Ek Malzemeler</Label>
+                    <Label for="ingredients" style={{ fontSize: '1.1rem' }}>Ek Malzemeler</Label>
                     {ingredients.map((ingredient, index) => (
                         <FormGroup check key={index} style={{
                             display: 'flex',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
                         }}>
                             <Input
                                 type="checkbox"
@@ -200,13 +201,20 @@ export default function Siparis() {
                         </CardText>
                         <div className="row">
                             <div className="col-12">
-                                <Button className="w-100" style={{
-                                    backgroundColor: '#FDC913',
-                                    border: 'none',
-                                    color: '#292929',
-                                    fontWeight: '400',
-                                    width: '100%'
-                                }}>SİPARİŞ VER</Button>
+                                <Button
+                                    className="w-100"
+                                    style={{
+                                        backgroundColor: '#FDC913',
+                                        border: 'none',
+                                        color: '#292929',
+                                        fontWeight: '400',
+                                        width: '100%'
+                                    }}
+                                >
+                                    <Link to="/success" style={{ textDecoration: 'none', color: '#292929' }}>
+                                        SİPARİŞ VER
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
                     </CardBody>
