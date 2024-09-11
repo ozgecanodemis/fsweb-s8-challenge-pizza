@@ -1,4 +1,4 @@
-// Success.js
+
 import React from 'react';
 
 function Success() {

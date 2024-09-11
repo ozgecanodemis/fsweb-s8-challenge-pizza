@@ -1,4 +1,3 @@
-// Siparis.js
 import React, { useState } from 'react';
 import { Form, FormGroup, Input, Label, Button, Nav, NavItem, NavLink, Card, CardText, CardBody, CardTitle, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -18,13 +17,26 @@ export default function Order() {
     const [isim, setisim] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formValid, setFormValid] = useState(false);
+
+    const validateForm = () => {
+        if (boyut && hamur && isim.length >= 3 && selectedIngredients.length > 0 && selectedIngredients.length <= 5) {
+            setFormValid(true);
+        } else {
+            setFormValid(false);
+        }
+    };
 
     const handleChangeBoyut = (event) => {
         setBoyut(event.target.value);
+        validateForm();
     };
 
     const handleChangeHamur = (event) => {
         setHamur(event.target.value);
+        validateForm();
     };
 
     const handleChangeNot = (event) => {
@@ -33,19 +45,42 @@ export default function Order() {
 
     const handleisimChange = (event) => {
         setisim(event.target.value);
+        validateForm();
     };
 
     const handleQuantityChange = (amount) => {
-        setQuantity((prevQuantity) => Math.max(prevQuantity + amount, 1));
+        setQuantity((prevQuantity) => Math.max(prevQuantity + amount, 0));
     };
 
     const handleIngredientChange = (event) => {
         const ingredient = event.target.value;
-        setSelectedIngredients((prevSelected) =>
-            prevSelected.includes(ingredient)
-                ? prevSelected.filter(item => item !== ingredient)
-                : [...prevSelected, ingredient]
-        );
+
+        if (selectedIngredients.includes(ingredient)) {
+            setSelectedIngredients(prevSelected =>
+                prevSelected.filter(item => item !== ingredient)
+            );
+            setErrorMessage('');
+        } else if (selectedIngredients.length < 5) {
+            setSelectedIngredients(prevSelected => [...prevSelected, ingredient]);
+            setErrorMessage('');
+        } else {
+            setErrorMessage('En fazla 5 malzeme seçebilirsiniz.');
+        }
+        validateForm();
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!formValid) return;
+
+        setIsSubmitting(true);
+
+
+        setTimeout(() => {
+            alert('Siparişiniz başarıyla alındı!');
+            setIsSubmitting(false);
+        }, 2000);
     };
 
     return (
@@ -67,7 +102,7 @@ export default function Order() {
                 </Nav>
             </header>
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <h2>Position Absolute Acı Pizza</h2>
                 <div className="container-detay" style={{
                     display: 'flex',
@@ -96,6 +131,7 @@ export default function Order() {
                                     value={sizeOption}
                                     checked={boyut === sizeOption}
                                     onChange={handleChangeBoyut}
+                                    required
                                 />
                                 <Label check>
                                     {sizeOption}
@@ -112,6 +148,7 @@ export default function Order() {
                             type="select"
                             value={hamur}
                             onChange={handleChangeHamur}
+                            required
                         >
                             {hamurOptions.map((option, index) => (
                                 <option key={index} value={option}>
@@ -142,6 +179,13 @@ export default function Order() {
                     ))}
                 </FormGroup>
 
+                {/* Hata Mesajı */}
+                {errorMessage && (
+                    <div style={{ color: 'red', marginBottom: '1rem' }}>
+                        {errorMessage}
+                    </div>
+                )}
+
                 <FormGroup>
                     <Label for="siparisnotu">Sipariş Notu</Label>
                     <Input
@@ -162,6 +206,7 @@ export default function Order() {
                         type="text"
                         value={isim}
                         onChange={handleisimChange}
+                        required
                     />
                 </FormGroup>
 
@@ -211,10 +256,13 @@ export default function Order() {
                                         fontWeight: '400',
                                         width: '100%'
                                     }}
+                                    type="submit"
+                                    disabled={isSubmitting || !formValid}
                                 >
                                     <Link to="/success" style={{ textDecoration: 'none', color: '#292929' }}>
                                         SİPARİŞ VER
                                     </Link>
+
                                 </Button>
                             </div>
                         </div>

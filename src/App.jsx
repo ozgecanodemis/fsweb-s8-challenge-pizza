@@ -1,4 +1,4 @@
-// App.js
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Order from './components/Order';
