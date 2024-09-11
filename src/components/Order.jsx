@@ -1,3 +1,4 @@
+// Siparis.js
 import React, { useState } from 'react';
 import { Form, FormGroup, Input, Label, Button, Nav, NavItem, NavLink, Card, CardText, CardBody, CardTitle, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -10,7 +11,7 @@ const ingredients = [
     'Jalepeno', 'Kabak', 'Soğan', 'Sarımsak'
 ];
 
-export default function Siparis() {
+export default function Order() {
     const [boyut, setBoyut] = useState('');
     const [hamur, setHamur] = useState('');
     const [note, setNote] = useState('');
@@ -51,11 +52,11 @@ export default function Siparis() {
         <div>
             <header style={{ backgroundColor: '#CE2829' }}>
                 <h1 style={{ color: 'white', fontFamily: '"Londrina Solid", sans-serif' }}>Teknolojik Yemekler</h1>
-                <Nav>
+                <Nav style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', color: '#FAF7F2' }}>
                     <NavItem>
-                        <NavLink active style={{ color: 'white' }} href="#">
-                            Anasayfa
-                        </NavLink>
+                        <Link to="/" style={{ textDecoration: 'none', color: '#FAF7F2' }}>
+                            Ana Sayfa
+                        </Link>
                     </NavItem>
 
                     <NavItem>
