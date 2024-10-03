@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Form, FormGroup, Input, Label, Button, Nav, NavItem, NavLink, Card, CardText, CardBody, CardTitle, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -69,19 +70,34 @@ export default function Order() {
         validateForm();
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!formValid) return;
 
         setIsSubmitting(true);
 
+        const orderData = {
+            boyut,
+            hamur,
+            note,
+            isim,
+            quantity,
+            selectedIngredients
+        };
 
-        setTimeout(() => {
+        try {
+            const response = await axios.post('https://reqres.in/api/pizza', orderData);
+            console.log('API Response:', response.data);
             alert('Siparişiniz başarıyla alındı!');
-            setIsSubmitting(false);
-        }, 2000);
+        } catch (error) {
+            console.error('API Error:', error);
+            alert('Siparişiniz sırasında bir hata oluştu.');
+        }
+
+        setIsSubmitting(false);
     };
+
 
     return (
         <div>
@@ -179,7 +195,7 @@ export default function Order() {
                     ))}
                 </FormGroup>
 
-                {/* Hata Mesajı */}
+
                 {errorMessage && (
                     <div style={{ color: 'red', marginBottom: '1rem' }}>
                         {errorMessage}
@@ -257,7 +273,7 @@ export default function Order() {
                                         width: '100%'
                                     }}
                                     type="submit"
-                                    disabled={isSubmitting || !formValid}
+                                    disabled={isSubmitting || formValid}
                                 >
                                     <Link to="/success" style={{ textDecoration: 'none', color: '#292929' }}>
                                         SİPARİŞ VER
