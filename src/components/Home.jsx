@@ -17,7 +17,7 @@ function Home() {
             <div
                 className='full-screen'
                 style={{
-
+                    minWidth: '60vw',
                     width: '100vw',
                     backgroundImage: 'url(../assets/iteration-1-assets/home-banner.png)',
                     backgroundSize: 'cover',
@@ -32,11 +32,12 @@ function Home() {
                 }}
             >
                 <div className='sets' style={{
-                    color: '#FAF7F2', display: 'flex', flexDirection: 'column',
+                    color: '#FAF7F2', display: 'flex', flexDirection: 'column', justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <h1 style={{ fontSize: '2rem', width: '50%', fontWeight: '600', }} >Teknolojik Yemekler</h1>
-                    <h2 style={{ fontSize: '4rem', width: '70%', fontWeight: '300', }}>KOD ACIKTIRIR PİZZA, DOYURUR</h2>
+                    <h1 style={{ fontSize: '2rem', fontWeight: '600', marginBottom: '40px' }} >Teknolojik Yemekler</h1>
+                    <h2 style={{ fontSize: '4rem', fontWeight: '300', }}>KOD ACIKTIRIR </h2>
+                    <h2 style={{ fontSize: '4rem', fontWeight: '300', }}>PİZZA, DOYURUR</h2>
                 </div>
 
                 <Button
@@ -48,7 +49,8 @@ function Home() {
                         color: '#292929',
                         fontWeight: '400',
                         margin: ' 20px',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        maxWidth: '150px'
                     }}
                     onClick={handleButtonClick}
                 >

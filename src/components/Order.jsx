@@ -4,7 +4,7 @@ import { Form, FormGroup, Input, Label, Button, Nav, NavItem, NavLink, Card, Car
 import { Link } from 'react-router-dom';
 
 const sizes = ['Küçük', 'Orta', 'Büyük'];
-const hamurOptions = ['Hamur Kalınlığı İnce', 'Hamur Kalınlığı Normal', 'Hamur Kalınlığı Kalın'];
+const hamurOptions = [' İnce', 'Normal', 'Kalın'];
 const ingredients = [
     'Pepperoni', 'Domates', 'Biber', 'Sosis', 'Mısır',
     'Sucuk', 'Kanada Jambonu', 'Ananas', 'Tavuk Izgara',
@@ -100,12 +100,13 @@ export default function Order() {
 
 
     return (
-        <div>
-            <header style={{ backgroundColor: '#CE2829' }}>
-                <h1 style={{ color: 'white', fontFamily: '"Londrina Solid", sans-serif' }}>Teknolojik Yemekler</h1>
-                <Nav style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', color: '#FAF7F2' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minWidth: '600px' }}>
+            <header style={{ backgroundColor: '#CE2829', backgroundSize: 'cover', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0' }}>
+
+                <h1 style={{ color: 'white', fontFamily: 'Roboto Condensed, sans-serif', margin: '0 35%', fontSize: '30px', fontWeight: '600', }}>Teknolojik Yemekler</h1>
+                <Nav style={{ display: 'flex', alignItems: 'center', color: '#FAF7F2', margin: '0 30%', fontWeight: '200' }}>
                     <NavItem>
-                        <Link to="/" style={{ textDecoration: 'none', color: '#FAF7F2' }}>
+                        <Link to="/" style={{ textDecoration: 'none', color: '#FAF7F2', fontWeight: '200' }}>
                             Ana Sayfa
                         </Link>
                     </NavItem>
@@ -118,8 +119,8 @@ export default function Order() {
                 </Nav>
             </header>
 
-            <Form onSubmit={handleSubmit}>
-                <h2>Position Absolute Acı Pizza</h2>
+            <Form onSubmit={handleSubmit} style={{ padding: '25px 30% ', color: '#292929' }} >
+                <h2 style={{ fontSize: '20px' }} >Position Absolute Acı Pizza</h2>
                 <div className="container-detay" style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -129,10 +130,10 @@ export default function Order() {
                         fontSize: '1.4rem',
                         fontWeight: '600',
                     }}>85.50₺</div>
-                    <div>4.9</div>
+                    <div style={{ marginLeft: '140px' }}>4.9</div>
                     <div>(200)</div>
                 </div>
-                <p>
+                <p style={{ color: '#5F5F5F' }}>
                     Frontend Dev olarak hala position: absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen genellikle yuvarlak düzeltilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
                 </p>
 
@@ -140,7 +141,7 @@ export default function Order() {
                     <FormGroup tag="fieldset" style={{ flex: 1 }}>
                         <legend>Boyut Seç<span style={{ color: '#CE2829' }}>*</span></legend>
                         {sizes.map((sizeOption, index) => (
-                            <FormGroup check key={index}>
+                            <FormGroup check key={index} style={{ color: '#5F5F5F' }}>
                                 <Input
                                     name="boyut"
                                     type="radio"
@@ -175,24 +176,24 @@ export default function Order() {
                     </FormGroup>
                 </div>
 
-                <FormGroup>
+                <FormGroup style={{ display: 'flex', flexDirection: 'coloumn', flexWrap: 'wrap', padding: '30px' }}>
                     <Label for="ingredients" style={{ fontSize: '1.1rem' }}>Ek Malzemeler</Label>
-                    {ingredients.map((ingredient, index) => (
-                        <FormGroup check key={index} style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                        }}>
-                            <Input
-                                type="checkbox"
-                                value={ingredient}
-                                checked={selectedIngredients.includes(ingredient)}
-                                onChange={handleIngredientChange}
-                            />
-                            <Label check>
-                                {ingredient}
-                            </Label>
-                        </FormGroup>
-                    ))}
+                    <p style={{ color: '#5F5F5F' }}> En fazla 5 malzeme seçebilirsiniz.</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '10px 20px' }}>
+                        {ingredients.map((ingredient, index) => (
+                            <FormGroup check key={index} style={{ margin: '0 10px 10px 0' }}>  {/* Sağ ve alt boşluk */}
+                                <Input
+                                    type="checkbox"
+                                    value={ingredient}
+                                    checked={selectedIngredients.includes(ingredient)}
+                                    onChange={handleIngredientChange}
+                                />
+                                <Label check>
+                                    {ingredient}
+                                </Label>
+                            </FormGroup>
+                        ))}
+                    </div>
                 </FormGroup>
 
 
@@ -226,7 +227,7 @@ export default function Order() {
                     />
                 </FormGroup>
 
-                <ButtonGroup>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><ButtonGroup style={{ height: '40px', marginTop: '10px' }}>
                     <Button
                         style={{
                             backgroundColor: '#FDC913',
@@ -239,7 +240,7 @@ export default function Order() {
                     >
                         -
                     </Button>
-                    <span style={{ padding: '0 1rem' }}>{quantity}</span>
+                    <span style={{ display: 'flex', alignItems: 'center', padding: '0 1rem' }}>{quantity}</span>
                     <Button
                         style={{
                             backgroundColor: '#FDC913',
@@ -254,36 +255,36 @@ export default function Order() {
                     </Button>
                 </ButtonGroup>
 
-                <Card className="my-2" style={{ width: '18rem' }}>
-                    <CardBody>
-                        <CardTitle tag="h5">Sipariş Toplamı</CardTitle>
-                        <CardText style={{ fontWeight: '500' }}>Seçimler</CardText>
-                        <CardText style={{ color: '#CE2829', fontWeight: '500' }}>
-                            {`Toplam: ${quantity * 85.50}₺`}
-                        </CardText>
-                        <div className="row">
-                            <div className="col-12">
-                                <Button
-                                    className="w-100"
-                                    style={{
-                                        backgroundColor: '#FDC913',
-                                        border: 'none',
-                                        color: '#292929',
-                                        fontWeight: '400',
-                                        width: '100%'
-                                    }}
-                                    type="submit"
-                                    disabled={isSubmitting || formValid}
-                                >
-                                    <Link to="/success" style={{ textDecoration: 'none', color: '#292929' }}>
-                                        SİPARİŞ VER
-                                    </Link>
+                    <Card className="my-2" style={{ width: '18rem' }}>
+                        <CardBody>
+                            <CardTitle tag="h5">Sipariş Toplamı</CardTitle>
+                            <CardText style={{ fontWeight: '500' }}>Seçimler</CardText>
+                            <CardText style={{ color: '#CE2829', fontWeight: '500' }}>
+                                {`Toplam: ${quantity * 85.50}₺`}
+                            </CardText>
+                            <div className="row">
+                                <div className="col-12">
+                                    <Button
+                                        className="w-100"
+                                        style={{
+                                            backgroundColor: '#FDC913',
+                                            border: 'none',
+                                            color: '#292929',
+                                            fontWeight: '400',
+                                            width: '100%'
+                                        }}
+                                        type="submit"
+                                        disabled={isSubmitting || formValid}
+                                    >
+                                        <Link to="/success" style={{ textDecoration: 'none', color: '#292929' }}>
+                                            SİPARİŞ VER
+                                        </Link>
 
-                                </Button>
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                    </CardBody>
-                </Card>
+                        </CardBody>
+                    </Card></div>
             </Form>
         </div>
     );
