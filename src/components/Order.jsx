@@ -16,6 +16,7 @@ export default function Order() {
     const [hamur, setHamur] = useState('');
     const [note, setNote] = useState('');
     const [isim, setisim] = useState('');
+
     const [quantity, setQuantity] = useState(1);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -181,7 +182,7 @@ export default function Order() {
                     <p style={{ color: '#5F5F5F' }}> En fazla 5 malzeme seçebilirsiniz.</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '10px 20px' }}>
                         {ingredients.map((ingredient, index) => (
-                            <FormGroup check key={index} style={{ margin: '0 10px 10px 0' }}>  {/* Sağ ve alt boşluk */}
+                            <FormGroup check key={index} style={{ margin: '0 10px 10px 0' }}>
                                 <Input
                                     type="checkbox"
                                     value={ingredient}
@@ -227,33 +228,34 @@ export default function Order() {
                     />
                 </FormGroup>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><ButtonGroup style={{ height: '40px', marginTop: '10px' }}>
-                    <Button
-                        style={{
-                            backgroundColor: '#FDC913',
-                            border: 'none',
-                            color: '#292929',
-                            fontWeight: '400',
-                            width: 'auto'
-                        }}
-                        onClick={() => handleQuantityChange(-1)}
-                    >
-                        -
-                    </Button>
-                    <span style={{ display: 'flex', alignItems: 'center', padding: '0 1rem' }}>{quantity}</span>
-                    <Button
-                        style={{
-                            backgroundColor: '#FDC913',
-                            border: 'none',
-                            color: '#292929',
-                            fontWeight: '400',
-                            width: 'auto'
-                        }}
-                        onClick={() => handleQuantityChange(1)}
-                    >
-                        +
-                    </Button>
-                </ButtonGroup>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <ButtonGroup style={{ height: '40px', marginTop: '10px' }}>
+                        <Button
+                            style={{
+                                backgroundColor: '#FDC913',
+                                border: 'none',
+                                color: '#292929',
+                                fontWeight: '400',
+                                width: 'auto'
+                            }}
+                            onClick={() => handleQuantityChange(-1)}
+                        >
+                            -
+                        </Button>
+                        <span style={{ display: 'flex', alignItems: 'center', padding: '0 1rem' }}>{quantity}</span>
+                        <Button
+                            style={{
+                                backgroundColor: '#FDC913',
+                                border: 'none',
+                                color: '#292929',
+                                fontWeight: '400',
+                                width: 'auto'
+                            }}
+                            onClick={() => handleQuantityChange(1)}
+                        >
+                            +
+                        </Button>
+                    </ButtonGroup>
 
                     <Card className="my-2" style={{ width: '18rem' }}>
                         <CardBody>
@@ -274,7 +276,7 @@ export default function Order() {
                                             width: '100%'
                                         }}
                                         type="submit"
-                                        disabled={isSubmitting || formValid}
+                                        disabled={isSubmitting || !formValid}
                                     >
                                         <Link to="/success" style={{ textDecoration: 'none', color: '#292929' }}>
                                             SİPARİŞ VER
